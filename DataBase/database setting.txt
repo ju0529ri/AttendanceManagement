@@ -1,0 +1,12 @@
+* Oracle DB 계정 생성 순서
+
+1. CMD
+sql> create user pro_attendance identified by 1234;
+sql> grant connect, resource to pro_attendance;
+
+2. SqlDeveloper
+접속 이름: pro_attendance
+사용자 이름: pro_attendance
+비밀번호: 1234
+
+-----------------------------------------------------------------------------------------------------------------------------------

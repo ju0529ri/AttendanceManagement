@@ -1,0 +1,147 @@
+@charset "UTF-8";
+
+/* Guide
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+▶사이즈
+pc : 1200px
+tablet : 980px ~
+mobile : 767px ~ 320px
+*/
+
+@media only screen and (max-width: 1200px){
+}
+@media only screen and (max-width: 980px){
+}
+@media only screen and (max-width: 768px){
+}
+@media only screen and (max-width: 479px) {
+}
+
+.container{margin-top:100px; margin-bottom:100px}
+.navbar-nav{max-width: 1140px;margin:0 auto;}
+/* table
+---------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.table-striped2 th {
+}
+.table-striped2{
+    border-top:2px solid #343a40;
+    border-bottom:1px solid #343a40;
+}
+.table .thead-dark th {
+    color: #fff;
+    background-color: #444;
+    border-color: #454d55;
+}
+
+
+/* 달력
+----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+ul {list-style-type: none;}
+.month {
+  padding: 70px 25px;
+  width: 100%;
+  border:1px solid #ddd;
+  text-align: center;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+  padding-top: 10px;
+}
+
+.month .next {
+  float: right;
+  padding-top: 10px;
+}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 12.6%;
+  color: #666;
+  text-align: center;
+}
+
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 12.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+.days li .active {
+  padding: 5px;
+  background: #dc3545;
+  color: white !important
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+  .weekdays li, .days li {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+  .weekdays li, .days li {width: 12.5%;}
+  .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+  .weekdays li, .days li {width: 11.2%;}
+}
+
+/* login
+----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.login-con {
+	height: 385px;
+}
+
+.input-field {
+   width: 50%;
+   padding: 15px 0;
+   margin: 30px 0 10px 0;
+   border: none;
+   border-bottom: 1px solid #999;
+   outline: none;
+   background: transparent;
+}
+
+.login-btn-danger {
+	width: 30%;
+	margin:0 auto;
+	padding: 20px 0;
+}
+
+.login-btn-second{
+	width: 15%;
+	margin: 15px auto;
+	padding: 20px 30px;
+	font-size: 10px;
+}

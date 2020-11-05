@@ -1,0 +1,284 @@
+/* Drop Tables */
+
+DROP TABLE IF EXISTS Commons;
+DROP TABLE IF EXISTS EmpBusinOrders;
+DROP TABLE IF EXISTS EmpYearFreeTime;
+DROP TABLE IF EXISTS Times;
+DROP TABLE IF EXISTS Employee;
+DROP TABLE IF EXISTS HolidayManage;
+
+
+
+
+/* Create Tables */
+
+-- 共通マスタ
+CREATE TABLE Commons
+(
+	-- コード
+	Code numeric(4),
+	-- コード名
+	CodeName  varchar(255),
+	-- 登録者
+	Registred varchar(255),
+	-- 登録日時
+	RegistredTime timestamp,
+	-- 更新者
+	Updated varchar(255),
+	-- 更新日時
+	UpdatedTime timestamp
+) WITHOUT OIDS;
+
+
+-- 社員業務指示新規テーブル
+CREATE TABLE EmpBusinOrders
+(
+	-- 社員ID
+	EmployeeId int NOT NULL,
+	-- 部署コード
+	DepartCode numeric(4),
+	-- 社員名
+	EmployeeName varchar(255),
+	-- 開始日
+	FromDate timestamp,
+	-- 終了日
+	ToDate timestamp,
+	-- 業務内容コード
+	BusinessDesCode numeric(4),
+	-- 登録者
+	Registred varchar(255),
+	-- 登録日時
+	RegistredTime varchar(255),
+	-- 更新者
+	Updated varchar(255),
+	-- 更新日時
+	UpdatedTime timestamp
+) WITHOUT OIDS;
+
+
+-- 社員マスタ
+CREATE TABLE Employee
+(
+	-- 社員ID
+	EmployeeId serial NOT NULL,
+	-- 部署コード
+	DepartCode char(4),
+	-- 社員名
+	EmployName varchar(30),
+	-- ログインID
+	LoginId char,
+	-- ログインパスワード
+	LoginPass char(4),
+	-- フリガナ
+	Phonetic varchar(30),
+	-- 郵便番号
+	ZipCode varchar(10),
+	-- 住所1
+	Address1 varchar(255),
+	-- 住所2
+	Address2 varchar(255),
+	-- 電話番号
+	PhoneNum varchar(25),
+	-- 携帯番号
+	MobileNum varchar(25),
+	-- メール
+	Email varchar(30),
+	-- 登録者
+	Registred varchar(255),
+	-- 登録日時
+	RegistredTime timestamp,
+	-- 更新者
+	Updated varchar(255),
+	-- 更新日時
+	UpdatedTime timestamp,
+	PRIMARY KEY (EmployeeId)
+) WITHOUT OIDS;
+
+
+-- 社員年暇テーブル
+CREATE TABLE EmpYearFreeTime
+(
+	-- 一連番号
+	SeriesNum serial NOT NULL,
+	-- 社員ID
+	EmployeeId int NOT NULL,
+	-- 社員名
+	EmployeeName varchar(255),
+	-- 年暇コード
+	YearTimeCode numeric(4),
+	-- 開始日
+	FromDate timestamp,
+	-- 終了日
+	ToDate timestamp,
+	-- 事由
+	Grounds varchar(255),
+	-- 日数
+	Days numeric(5),
+	-- 承認区分コード
+	ApprovalCode numeric(4),
+	-- 登録者
+	Registred varchar(255),
+	-- 登録日時
+	RegistredTime timestamp,
+	-- 更新者
+	Updated varchar(255),
+	-- 更新日時
+	UpdatedTime timestamp,
+	PRIMARY KEY (SeriesNum)
+) WITHOUT OIDS;
+
+
+-- 休日管理マスタ
+CREATE TABLE HolidayManage
+(
+	-- 日付
+	Date timestamp,
+	-- 休日
+	Holiday varchar(255),
+	-- 備考
+	Remarks varchar(255),
+	-- 登録者
+	Registred varchar(255),
+	-- 登録日時
+	RegistredTime timestamp,
+	-- 更新者
+	Updated varchar(255),
+	-- 更新日時
+	UpdatedTime timestamp
+) WITHOUT OIDS;
+
+
+-- 勤怠テーブル
+CREATE TABLE Times
+(
+	-- 勤怠ID
+	TimeId serial NOT NULL,
+	-- 社員ID
+	EmployeeId int NOT NULL,
+	-- 日付
+	Dates timestamp,
+	-- 出勤時刻
+	AttendTime timestamp,
+	-- 退勤時刻
+	LeaveTime timestamp,
+	-- 業務内容コード
+	BusinDescCode char(4),
+	-- 超過勤怠区分
+	OverTimeClass numeric(1),
+	-- 超過開始時刻
+	OverTimeStartTime timestamp,
+	-- 超過終了時刻
+	OvertimeEndTime timestamp,
+	-- 登録者
+	Registred varchar(255),
+	-- 登録日時
+	RegistredTime timestamp,
+	-- 更新者
+	Updated varchar(255),
+	-- 更新日時
+	UpdatedTime timestamp,
+	PRIMARY KEY (TimeId)
+) WITHOUT OIDS;
+
+
+
+/* Create Foreign Keys */
+
+ALTER TABLE EmpBusinOrders
+	ADD FOREIGN KEY (EmployeeId)
+	REFERENCES Employee (EmployeeId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE EmpYearFreeTime
+	ADD FOREIGN KEY (EmployeeId)
+	REFERENCES Employee (EmployeeId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE Times
+	ADD FOREIGN KEY (EmployeeId)
+	REFERENCES Employee (EmployeeId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+
+/* Comments */
+
+COMMENT ON TABLE Commons IS '共通マスタ';
+COMMENT ON COLUMN Commons.Code IS 'コード';
+COMMENT ON COLUMN Commons.CodeName  IS 'コード名';
+COMMENT ON COLUMN Commons.Registred IS '登録者';
+COMMENT ON COLUMN Commons.RegistredTime IS '登録日時';
+COMMENT ON COLUMN Commons.Updated IS '更新者';
+COMMENT ON COLUMN Commons.UpdatedTime IS '更新日時';
+COMMENT ON TABLE EmpBusinOrders IS '社員業務指示新規テーブル';
+COMMENT ON COLUMN EmpBusinOrders.EmployeeId IS '社員ID';
+COMMENT ON COLUMN EmpBusinOrders.DepartCode IS '部署コード';
+COMMENT ON COLUMN EmpBusinOrders.EmployeeName IS '社員名';
+COMMENT ON COLUMN EmpBusinOrders.FromDate IS '開始日';
+COMMENT ON COLUMN EmpBusinOrders.ToDate IS '終了日';
+COMMENT ON COLUMN EmpBusinOrders.BusinessDesCode IS '業務内容コード';
+COMMENT ON COLUMN EmpBusinOrders.Registred IS '登録者';
+COMMENT ON COLUMN EmpBusinOrders.RegistredTime IS '登録日時';
+COMMENT ON COLUMN EmpBusinOrders.Updated IS '更新者';
+COMMENT ON COLUMN EmpBusinOrders.UpdatedTime IS '更新日時';
+COMMENT ON TABLE Employee IS '社員マスタ';
+COMMENT ON COLUMN Employee.EmployeeId IS '社員ID';
+COMMENT ON COLUMN Employee.DepartCode IS '部署コード';
+COMMENT ON COLUMN Employee.EmployName IS '社員名';
+COMMENT ON COLUMN Employee.LoginId IS 'ログインID';
+COMMENT ON COLUMN Employee.LoginPass IS 'ログインパスワード';
+COMMENT ON COLUMN Employee.Phonetic IS 'フリガナ';
+COMMENT ON COLUMN Employee.ZipCode IS '郵便番号';
+COMMENT ON COLUMN Employee.Address1 IS '住所1';
+COMMENT ON COLUMN Employee.Address2 IS '住所2';
+COMMENT ON COLUMN Employee.PhoneNum IS '電話番号';
+COMMENT ON COLUMN Employee.MobileNum IS '携帯番号';
+COMMENT ON COLUMN Employee.Email IS 'メール';
+COMMENT ON COLUMN Employee.Registred IS '登録者';
+COMMENT ON COLUMN Employee.RegistredTime IS '登録日時';
+COMMENT ON COLUMN Employee.Updated IS '更新者';
+COMMENT ON COLUMN Employee.UpdatedTime IS '更新日時';
+COMMENT ON TABLE EmpYearFreeTime IS '社員年暇テーブル';
+COMMENT ON COLUMN EmpYearFreeTime.SeriesNum IS '一連番号';
+COMMENT ON COLUMN EmpYearFreeTime.EmployeeId IS '社員ID';
+COMMENT ON COLUMN EmpYearFreeTime.EmployeeName IS '社員名';
+COMMENT ON COLUMN EmpYearFreeTime.YearTimeCode IS '年暇コード';
+COMMENT ON COLUMN EmpYearFreeTime.FromDate IS '開始日';
+COMMENT ON COLUMN EmpYearFreeTime.ToDate IS '終了日';
+COMMENT ON COLUMN EmpYearFreeTime.Grounds IS '事由';
+COMMENT ON COLUMN EmpYearFreeTime.Days IS '日数';
+COMMENT ON COLUMN EmpYearFreeTime.ApprovalCode IS '承認区分コード';
+COMMENT ON COLUMN EmpYearFreeTime.Registred IS '登録者';
+COMMENT ON COLUMN EmpYearFreeTime.RegistredTime IS '登録日時';
+COMMENT ON COLUMN EmpYearFreeTime.Updated IS '更新者';
+COMMENT ON COLUMN EmpYearFreeTime.UpdatedTime IS '更新日時';
+COMMENT ON TABLE HolidayManage IS '休日管理マスタ';
+COMMENT ON COLUMN HolidayManage.Date IS '日付';
+COMMENT ON COLUMN HolidayManage.Holiday IS '休日';
+COMMENT ON COLUMN HolidayManage.Remarks IS '備考';
+COMMENT ON COLUMN HolidayManage.Registred IS '登録者';
+COMMENT ON COLUMN HolidayManage.RegistredTime IS '登録日時';
+COMMENT ON COLUMN HolidayManage.Updated IS '更新者';
+COMMENT ON COLUMN HolidayManage.UpdatedTime IS '更新日時';
+COMMENT ON TABLE Times IS '勤怠テーブル';
+COMMENT ON COLUMN Times.TimeId IS '勤怠ID';
+COMMENT ON COLUMN Times.EmployeeId IS '社員ID';
+COMMENT ON COLUMN Times.Dates IS '日付';
+COMMENT ON COLUMN Times.AttendTime IS '出勤時刻';
+COMMENT ON COLUMN Times.LeaveTime IS '退勤時刻';
+COMMENT ON COLUMN Times.BusinDescCode IS '業務内容コード';
+COMMENT ON COLUMN Times.OverTimeClass IS '超過勤怠区分';
+COMMENT ON COLUMN Times.OverTimeStartTime IS '超過開始時刻';
+COMMENT ON COLUMN Times.OvertimeEndTime IS '超過終了時刻';
+COMMENT ON COLUMN Times.Registred IS '登録者';
+COMMENT ON COLUMN Times.RegistredTime IS '登録日時';
+COMMENT ON COLUMN Times.Updated IS '更新者';
+COMMENT ON COLUMN Times.UpdatedTime IS '更新日時';
